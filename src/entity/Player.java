@@ -182,18 +182,25 @@ public class Player extends Entity{
 				worldX = estimatedPlayerWorldX;
 				worldY = estimatedPlayerWorldY;
 			} else {
+				boolean xStop = false;
+				boolean yStop = false;
+				
 				switch(collisionOnDirections[0]) {
 					case up:
 						estimatedPlayerWorldY = worldY;
+						yStop = true;
 						break;
 					case down:
 						estimatedPlayerWorldY = worldY;
+						yStop = true;
 						break;
 					case left:
 						estimatedPlayerWorldX = worldX;
+						xStop = true;
 						break;
 					case right:
 						estimatedPlayerWorldX = worldX;
+						xStop = true;
 						break;
 				}
 				
@@ -201,18 +208,25 @@ public class Player extends Entity{
 					switch(collisionOnDirections[1]) {
 						case up:
 							estimatedPlayerWorldY = worldY;
+							yStop = true;
 							break;
 						case down:
 							estimatedPlayerWorldY = worldY;
+							yStop = true;
 							break;
 						case left:
 							estimatedPlayerWorldX = worldX;
+							xStop = true;
 							break;
 						case right:
 							estimatedPlayerWorldX = worldX;
+							xStop = true;
 							break;
 					}
 				}
+				
+				worldX = estimatedPlayerWorldX;
+				worldY = estimatedPlayerWorldY;
 			}
 			
 			spriteCounter++;
