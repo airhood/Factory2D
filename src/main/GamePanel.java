@@ -126,15 +126,59 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	public void update() {
 		player.update();
+		
+		//System.out.println("player pos | x: " + getPlayerXString() + " y: " + getPlayerYString());
 	}
 	
-	public void syncPosition() {
-		//player.worldX = (player.systemWorldX * (-1)) - tileManager.worldMidX;
-		//player.worldY = (player.systemWorldY * (-1)) - tileManager.worldMidY;
-		
-		player.worldX = player.systemWorldX;
-		player.worldY = player.systemWorldY;
+	public float divide(float n, float m) {
+		return n / m;
 	}
+	
+	public float round(float number, int n) {
+	    double m = Math.pow(10.0, n);
+	    
+	    return (float) (Math.round(number * m) / m);
+	}
+	
+	public String fillZero(float number, int n) {
+		String str = Float.toString(number);
+		
+		boolean start = false;
+		
+		int decimalCount = 0;
+		
+		for (int i = 0; i < str.length(); i++) {
+			if (str.charAt(i) == '.') {
+				start = true;
+			} else if (start) {
+				decimalCount++;
+			}
+		}
+		
+		if (number != n) {
+			for (int m = 0; m < n - decimalCount; m++) {
+				str = str + "0";
+			}
+		}
+		
+		return str;
+	}
+	
+	public String getPlayerXString() {
+		return fillZero(round(divide((float)player.worldX, (float)tileSize), 3), 4);
+	}
+	
+	public String getPlayerYString() {
+		return fillZero(round(divide((float)player.worldY, (float)tileSize), 3), 4);
+	}
+	
+//	public void syncPosition() {
+//		player.worldX = (player.systemWorldX * (-1)) - tileManager.worldMidX;
+//		player.worldY = (player.systemWorldY * (-1)) - tileManager.worldMidY;
+//		
+//		player.worldX = player.systemWorldX;
+//		player.worldY = player.systemWorldY;
+//	}
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
