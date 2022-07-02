@@ -151,7 +151,7 @@ public class TileManager {
 			int worldX = worldCol * gamePanel.tileSize;
 			int worldY = worldRow * gamePanel.tileSize;
 			int screenX = worldX - gamePanel.player.systemWorldX + gamePanel.player.screenX;
-			int screenY = worldY - gamePanel.player.systemWorldX + gamePanel.player.screenY;
+			int screenY = worldY - gamePanel.player.systemWorldY + gamePanel.player.screenY;
 			
 			int outLineRenderX = ((renderDistance - 1) * gamePanel.maxScreenCol)+ (1 * gamePanel.tileSize);
 			int outLineRenderY = ((renderDistance - 1) * gamePanel.maxScreenRow) + (1 * gamePanel.tileSize);
