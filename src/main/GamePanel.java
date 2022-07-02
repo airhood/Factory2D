@@ -31,13 +31,14 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	public int targetFPS = 60;
 	
-	TileManager tileManager = new TileManager(this);
+	
 	KeyHandler keyHandler = new KeyHandler();
 	Thread gameThread;
 	public CollisionChecker collisionChecker = new CollisionChecker(this);
 	public AssetSetter assetSetter = new AssetSetter(this);
 	public Player player = new Player(this, keyHandler);
 	public SuperObject[] obj = new SuperObject[10];
+	TileManager tileManager = new TileManager(this);
 	
 	int playerX = 100;
 	int playerY = 100;
@@ -51,6 +52,12 @@ public class GamePanel extends JPanel implements Runnable{
 		this.setFocusable(true);
 		
 		setCursor(CursorType.NormalSelects);
+	}
+	
+	public void SetUpGame() {
+		assetSetter.setObject();
+		player.worldX = player.worldSpawnX;
+		player.worldY = player.worldSpawnY;
 	}
 	
 	public void startGameThread() {
@@ -165,11 +172,12 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 	
 	public String getPlayerXString() {
-		return fillZero(round(divide((float)player.worldX, (float)tileSize), 3), 4);
+		System.out.println(tileManager.worldMidX + "  |  " + tileManager.worldMidY);
+		return fillZero(round(divide((float)player.worldX - tileManager.worldMidX, (float)tileSize), 3), 4);
 	}
 	
 	public String getPlayerYString() {
-		return fillZero(round(divide((float)player.worldY, (float)tileSize), 3), 4);
+		return fillZero(round(divide((float)player.worldY - tileManager.worldMidY, (float)tileSize), 3), 4);
 	}
 	
 //	public void syncPosition() {

@@ -103,12 +103,13 @@ public class TileManager {
 						if (!mapVarSet) mapVarSet = true;
 						else mapVarSet = false;
 					} else if (mapVarSet && variables[0].charAt(0) == '$') {
-						String mapVarName = variables[0].replace("$", "");
+						String mapVarName = variables[0].replace("$", "").replace(":", "");
 						
 						switch(mapVarName) {
-							case "spawn":
-								gamePanel.player.worldSpawnX = Integer.parseInt(variables[1]);
-								gamePanel.player.worldSpawnY = Integer.parseInt(variables[2]);
+							case "spawn":								
+								gamePanel.player.worldSpawnX = Integer.parseInt(variables[1]) * gamePanel.tileSize;
+								gamePanel.player.worldSpawnY = Integer.parseInt(variables[2]) * gamePanel.tileSize;
+								
 								break;
 							case "worldMid":
 								worldMidX = Integer.parseInt(variables[1]);
@@ -143,7 +144,6 @@ public class TileManager {
 	public void draw(Graphics2D g2) {
 		int worldCol = 0;
 		int worldRow = 0;
-		
 		
 		while(worldCol < gamePanel.maxWorldCol && worldRow < gamePanel.maxWorldRow) {
 			int tileNum = mapTileNum[worldCol][worldRow];

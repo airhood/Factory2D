@@ -31,6 +31,7 @@ public class Main {
 		
 		Main main = new Main();
 		
+		gamePanel.SetUpGame();
 		gamePanel.startGameThread();
 	}
 	

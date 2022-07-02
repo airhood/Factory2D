@@ -260,8 +260,6 @@ public class CollisionChecker {
 					
 				}
 			}
-			
-			System.out.println("1:" + entity.collisionOnDirections[0] + "  2:" + entity.collisionOnDirections[1]);
 		} catch (ArrayIndexOutOfBoundsException e) {
 			
 		}
