@@ -22,6 +22,9 @@ public class TileManager {
 	
 	public int renderDistance = 1;
 	
+	public int worldMidX;
+	public int worldMidY;
+	
 	public TileManager(GamePanel gamePanel) {
 		this.gamePanel = gamePanel;
 		
@@ -37,6 +40,7 @@ public class TileManager {
 		try {
 			InputStream inputStream = getClass().getResourceAsStream("/tiles/tileMeta.meta");
 			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+			
 			
 			for (int n = 0; n < tileAmount; n++){
 				
@@ -87,21 +91,47 @@ public class TileManager {
 			int col = 0;
 			int row = 0;
 			
+			boolean mapVarSet = false;
+			
 			while(col < gamePanel.maxWorldCol && row < gamePanel.maxWorldRow) {
 				String line = bufferedReader.readLine();
 				
-				while(col < gamePanel.maxWorldCol) {
-					String numbers[] = line.split(" ");
+				if (line != null) {
+					String variables[] = line.split(" ");
 					
-					int num = Integer.parseInt(numbers[col]);
-					
-					mapTileNum[col][row] = num;
-					col++;
-				}
-				
-				if (col == gamePanel.maxWorldCol) {
-					col = 0;
-					row++;
+					if (variables[0].equals("###")) {
+						if (!mapVarSet) mapVarSet = true;
+						else mapVarSet = false;
+					} else if (mapVarSet && variables[0].charAt(0) == '$') {
+						String mapVarName = variables[0].replace("$", "");
+						
+						switch(mapVarName) {
+							case "spawn":
+								gamePanel.player.worldSpawnX = Integer.parseInt(variables[1]);
+								gamePanel.player.worldSpawnY = Integer.parseInt(variables[2]);
+								break;
+							case "worldMid":
+								worldMidX = Integer.parseInt(variables[1]);
+								worldMidY = Integer.parseInt(variables[2]);
+								break;
+						}
+					} else {
+						String numbers[] = line.split(" ");
+						
+						while(col < gamePanel.maxWorldCol) {
+							if (!numbers[col].equals("")) {
+								int num = Integer.parseInt(numbers[col]);
+								
+								mapTileNum[col][row] = num;
+								col++;
+							}
+						}
+						
+						if (col == gamePanel.maxWorldCol) {
+							col = 0;
+							row++;
+						}
+					}
 				}
 			}
 			bufferedReader.close();
@@ -120,16 +150,17 @@ public class TileManager {
 			
 			int worldX = worldCol * gamePanel.tileSize;
 			int worldY = worldRow * gamePanel.tileSize;
-			int screenX = worldX - gamePanel.player.worldX + gamePanel.player.screenX;
-			int screenY = worldY - gamePanel.player.worldY + gamePanel.player.screenY;
+			int screenX = worldX - gamePanel.player.systemWorldX + gamePanel.player.screenX;
+			int screenY = worldY - gamePanel.player.systemWorldX + gamePanel.player.screenY;
 			
-			int outLineRenderX = ((renderDistance - 1) * gamePanel.maxScreenCol )+ (1 * gamePanel.tileSize);
+			int outLineRenderX = ((renderDistance - 1) * gamePanel.maxScreenCol)+ (1 * gamePanel.tileSize);
 			int outLineRenderY = ((renderDistance - 1) * gamePanel.maxScreenRow) + (1 * gamePanel.tileSize);
 			
-			if (worldX + outLineRenderX > gamePanel.player.worldX - gamePanel.player.screenX &&
-					worldX - outLineRenderX < gamePanel.player.worldX + gamePanel.player.screenX &&
-					worldY  + outLineRenderY > gamePanel.player.worldY - gamePanel.player.screenY &&
-					worldY - outLineRenderY < gamePanel.player.worldY + gamePanel.player.screenY) {
+			
+			if (worldX + outLineRenderX > gamePanel.player.systemWorldX - gamePanel.player.screenX &&
+					worldX - outLineRenderX < gamePanel.player.systemWorldX + gamePanel.player.screenX &&
+					worldY  + outLineRenderY > gamePanel.player.systemWorldY - gamePanel.player.screenY &&
+					worldY - outLineRenderY < gamePanel.player.systemWorldY + gamePanel.player.screenY) {
 				g2.drawImage(tile[tileNum - 1].image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
 			}
 			

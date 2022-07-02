@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import entity.Player;
+import object.SuperObject;
 import tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable{
@@ -34,7 +35,9 @@ public class GamePanel extends JPanel implements Runnable{
 	KeyHandler keyHandler = new KeyHandler();
 	Thread gameThread;
 	public CollisionChecker collisionChecker = new CollisionChecker(this);
+	public AssetSetter assetSetter = new AssetSetter(this);
 	public Player player = new Player(this, keyHandler);
+	public SuperObject[] obj = new SuperObject[10];
 	
 	int playerX = 100;
 	int playerY = 100;
@@ -123,6 +126,14 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	public void update() {
 		player.update();
+	}
+	
+	public void syncPosition() {
+		//player.worldX = (player.systemWorldX * (-1)) - tileManager.worldMidX;
+		//player.worldY = (player.systemWorldY * (-1)) - tileManager.worldMidY;
+		
+		player.worldX = player.systemWorldX;
+		player.worldY = player.systemWorldY;
 	}
 	
 	public void paintComponent(Graphics g) {

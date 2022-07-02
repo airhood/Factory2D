@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 public class Entity {
 	
 	public int worldX, worldY;
+	public int systemWorldX, systemWorldY;
 	public float speed;
 	public float diagonalSpeed;
 	

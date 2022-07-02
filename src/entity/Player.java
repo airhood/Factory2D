@@ -21,6 +21,9 @@ public class Player extends Entity{
 	public final int screenX;
 	public final int screenY;
 	
+	public int worldSpawnX;
+	public int worldSpawnY;
+	
 	boolean isVerticalMove = false;
 	
 	public Player(GamePanel gamePanel, KeyHandler keyHandler) {
@@ -37,8 +40,8 @@ public class Player extends Entity{
 	}
 	
 	public void setDefaultValues() {
-		worldX = (gamePanel.tileSize * (gamePanel.maxWorldCol / 2)) - (gamePanel.tileSize / 2);
-		worldY = (gamePanel.tileSize * (gamePanel.maxWorldRow / 2)) - (gamePanel.tileSize / 2);
+		systemWorldX = (gamePanel.tileSize * (gamePanel.maxWorldCol / 2)) - (gamePanel.tileSize / 2);
+		systemWorldY = (gamePanel.tileSize * (gamePanel.maxWorldRow / 2)) - (gamePanel.tileSize / 2);
 		speed = 3f;
 		diagonalSpeed = 2f;
 		direction = Direction.down;
@@ -62,8 +65,8 @@ public class Player extends Entity{
 	}
 	
 	public void update() {
-		int estimatedPlayerWorldX = worldX;
-		int estimatedPlayerWorldY = worldY;
+		int estimatedPlayerWorldX = systemWorldX;
+		int estimatedPlayerWorldY = systemWorldY;
 		
 		if (!keyHandler.upPressed && !keyHandler.downPressed && !keyHandler.leftPressed && !keyHandler.rightPressed) {
 			if (!isVerticalMove) {
@@ -179,27 +182,27 @@ public class Player extends Entity{
 			gamePanel.collisionChecker.checkTile(this, directions, estimatedPlayerWorldX, estimatedPlayerWorldY);
 			
 			if (collisionOnDirections[0] == null) {
-				worldX = estimatedPlayerWorldX;
-				worldY = estimatedPlayerWorldY;
+				systemWorldX = estimatedPlayerWorldX;
+				systemWorldY = estimatedPlayerWorldY;
 			} else {
 				boolean xStop = false;
 				boolean yStop = false;
 				
 				switch(collisionOnDirections[0]) {
 					case up:
-						estimatedPlayerWorldY = worldY;
+						estimatedPlayerWorldY = systemWorldY;
 						yStop = true;
 						break;
 					case down:
-						estimatedPlayerWorldY = worldY;
+						estimatedPlayerWorldY = systemWorldY;
 						yStop = true;
 						break;
 					case left:
-						estimatedPlayerWorldX = worldX;
+						estimatedPlayerWorldX = systemWorldX;
 						xStop = true;
 						break;
 					case right:
-						estimatedPlayerWorldX = worldX;
+						estimatedPlayerWorldX = systemWorldX;
 						xStop = true;
 						break;
 				}
@@ -207,26 +210,26 @@ public class Player extends Entity{
 				if (collisionOnDirections[1] != null) {
 					switch(collisionOnDirections[1]) {
 						case up:
-							estimatedPlayerWorldY = worldY;
+							estimatedPlayerWorldY = systemWorldY;
 							yStop = true;
 							break;
 						case down:
-							estimatedPlayerWorldY = worldY;
+							estimatedPlayerWorldY = systemWorldY;
 							yStop = true;
 							break;
 						case left:
-							estimatedPlayerWorldX = worldX;
+							estimatedPlayerWorldX = systemWorldX;
 							xStop = true;
 							break;
 						case right:
-							estimatedPlayerWorldX = worldX;
+							estimatedPlayerWorldX = systemWorldX;
 							xStop = true;
 							break;
 					}
 				}
 				
-				worldX = estimatedPlayerWorldX;
-				worldY = estimatedPlayerWorldY;
+				systemWorldX = estimatedPlayerWorldX;
+				systemWorldY = estimatedPlayerWorldY;
 			}
 			
 			spriteCounter++;
