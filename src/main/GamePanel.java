@@ -46,6 +46,8 @@ public class GamePanel extends JPanel implements Runnable{
 		this.setDoubleBuffered(true);
 		this.addKeyListener(keyHandler);
 		this.setFocusable(true);
+		
+		setCursor(CursorType.NormalSelects);
 	}
 	
 	public void startGameThread() {
@@ -133,5 +135,51 @@ public class GamePanel extends JPanel implements Runnable{
 		player.draw(g2);
 		
 		g2.dispose();
+	}
+	
+	public void setCursor(CursorType cursor) {
+		Main main = new Main();
+		
+		switch(cursor) {
+			case AltSelect:
+				main.setCursor("Alt Select");
+				break;
+			case Busy:
+				main.setCursor("Busy");
+				break;
+			case Diagonal1:
+				main.setCursor("Diagonal 1");
+				break;
+			case Diagonal2:
+				main.setCursor("Diagonal 2");
+				break;
+			case HelpSelect:
+				main.setCursor("Help Select");
+				break;
+			case Horizontal:
+				main.setCursor("Horizontal");
+				break;
+			case Move:
+				main.setCursor("Move");
+				break;
+			case NormalSelects:
+				main.setCursor("Normal Selects");
+				break;
+			case PrecisionSelect:
+				main.setCursor("Precision Select");
+				break;
+			case TextSelect:
+				main.setCursor("Text Select");
+				break;
+			case Unavailable:
+				main.setCursor("Unavailable");
+				break;
+			case Vertical:
+				main.setCursor("Vertical");
+				break;
+			case WorkingInBackground:
+				main.setCursor("Working In Background");
+				break;
+		}
 	}
 }

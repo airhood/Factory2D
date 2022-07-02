@@ -2,7 +2,7 @@ earth.png 0
 floor01.png 0
 grass00.png 0
 grass01.png 0
-hut.png 0
+hut.png 1
 road00.png 0
 road01.png 0
 road02.png 0
@@ -16,7 +16,7 @@ road09.png 0
 road10.png 0
 road11.png 0
 road12.png 0
-table01.png 0
+table01.png 1
 tree.png 0
 wall.png 1
 water00.png 0
