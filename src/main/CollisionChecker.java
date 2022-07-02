@@ -12,10 +12,10 @@ public class CollisionChecker {
 	}
 	
 	public void checkTile(Entity entity, Direction[] movingDirections, int estimatedWorldX, int estimatedWorldY) {
-		int entityLeftWorldX = entity.systemWorldX + entity.solidArea.x;
-		int entityRightWorldX = entity.systemWorldX + entity.solidArea.x + entity.solidArea.width;
-		int entityTopWorldY = entity.systemWorldY + entity.solidArea.y;
-		int entityBottomWorldY = entity.systemWorldY + entity.solidArea.y + entity.solidArea.height;
+		int entityLeftWorldX = (entity.worldX * (-1)) + entity.solidArea.x;
+		int entityRightWorldX = (entity.worldX * (-1)) + entity.solidArea.x + entity.solidArea.width;
+		int entityTopWorldY = (entity.worldY * (-1)) + entity.solidArea.y;
+		int entityBottomWorldY = (entity.worldY * (-1)) + entity.solidArea.y + entity.solidArea.height;
 		
 		int entityLeftCol = entityLeftWorldX / gamePanel.tileSize;
 		int entityRightCol = entityRightWorldX / gamePanel.tileSize;
@@ -143,7 +143,7 @@ public class CollisionChecker {
 						} else if (gamePanel.tileManager.tile[tileNum1 - 1].collision || gamePanel.tileManager.tile[tileNum2 - 1].collision) {
 							if (firstCollisionDone) {
 								entity.collisionOnDirections[1] = Direction.down;
-						} else {
+							} else {
 								entity.collisionOnDirections[0] = Direction.down;
 								entity.collisionOnDirections[1] = null;
 							}
@@ -215,11 +215,14 @@ public class CollisionChecker {
 					entity.collisionOnDirections[0] = movingDirections[0];
 				} else if (!twoTouch[0] && twoTouch[1]) {
 					entity.collisionOnDirections[0] = movingDirections[1];
+				} else if (twoTouch[0] && twoTouch[1]) {
+					entity.collisionOnDirections[0] = movingDirections[0];
+					entity.collisionOnDirections[1] = movingDirections[1];
 				}
 			} else {
 				if (!twoTouch[0]) {
 					if (entity.collisionOnDirections[0] == Direction.up ||
-							entity.collisionOnDirections[0] == Direction.up) {
+							entity.collisionOnDirections[0] == Direction.down) {
 						entityLeftCol = (entityLeftWorldX - (int)entity.speed) / gamePanel.tileSize;
 						tileNum1 = gamePanel.tileManager.mapTileNum[entityLeftCol][entityTopRow];
 						tileNum2 = gamePanel.tileManager.mapTileNum[entityLeftCol][entityBottomRow];
@@ -257,6 +260,8 @@ public class CollisionChecker {
 					
 				}
 			}
+			
+			System.out.println("1:" + entity.collisionOnDirections[0] + "  2:" + entity.collisionOnDirections[1]);
 		} catch (ArrayIndexOutOfBoundsException e) {
 			
 		}

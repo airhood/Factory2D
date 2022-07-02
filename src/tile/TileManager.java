@@ -150,17 +150,17 @@ public class TileManager {
 			
 			int worldX = worldCol * gamePanel.tileSize;
 			int worldY = worldRow * gamePanel.tileSize;
-			int screenX = worldX - gamePanel.player.systemWorldX + gamePanel.player.screenX;
-			int screenY = worldY - gamePanel.player.systemWorldY + gamePanel.player.screenY;
+			int screenX = worldX - (gamePanel.player.worldX * (-1)) + gamePanel.player.screenX;
+			int screenY = worldY - (gamePanel.player.worldY * (-1)) + gamePanel.player.screenY;
 			
 			int outLineRenderX = ((renderDistance - 1) * gamePanel.maxScreenCol)+ (1 * gamePanel.tileSize);
 			int outLineRenderY = ((renderDistance - 1) * gamePanel.maxScreenRow) + (1 * gamePanel.tileSize);
 			
 			
-			if (worldX + outLineRenderX > gamePanel.player.systemWorldX - gamePanel.player.screenX &&
-					worldX - outLineRenderX < gamePanel.player.systemWorldX + gamePanel.player.screenX &&
-					worldY  + outLineRenderY > gamePanel.player.systemWorldY - gamePanel.player.screenY &&
-					worldY - outLineRenderY < gamePanel.player.systemWorldY + gamePanel.player.screenY) {
+			if (worldX + outLineRenderX > (gamePanel.player.worldX * (-1)) - gamePanel.player.screenX &&
+					worldX - outLineRenderX < (gamePanel.player.worldX * (-1)) + gamePanel.player.screenX &&
+					worldY  + outLineRenderY > (gamePanel.player.worldY * (-1)) - gamePanel.player.screenY &&
+					worldY - outLineRenderY < (gamePanel.player.worldY * (-1)) + gamePanel.player.screenY) {
 				g2.drawImage(tile[tileNum - 1].image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
 			}
 			
