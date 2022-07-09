@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
+import entity.EntityHandler;
 import entity.Player;
 import tile.TileManager;
 
@@ -37,6 +38,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public AssetSetter assetSetter = new AssetSetter(this);
 	public Player player = new Player(this, keyHandler);
 	TileManager tileManager = new TileManager(this);
+	public EntityHandler entityHandler = new EntityHandler();
 	
 	int playerX = 100;
 	int playerY = 100;

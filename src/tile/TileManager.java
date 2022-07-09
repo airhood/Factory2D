@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -16,7 +17,8 @@ public class TileManager {
 	GamePanel gamePanel;
 	public Tile[] tile;
 	String[] tileImageFileName = { "earth.png", "floor01.png", "grass00.png", "grass01.png", "hut.png", "road00.png", "road01.png", "road02.png", "road03.png", "road04.png", "road05.png", "road06.png", "road07.png", "road08.png", "road09.png", "road10.png", "road11.png", "road12.png", "table01.png", "tree.png", "wall.png", "water00.png", "water01.png", "water02.png", "water03.png", "water04.png", "water05.png", "water06.png", "water07.png", "water08.png", "water09.png", "water10.png", "water11.png", "water12.png", "water13.png"};
-	public int mapTileNum[][][];
+	public int mapTileNum[][];
+	public ArrayList<Tile<Machine>> mapTileTopLayer;
 	
 	public final int tileAmount = 35;
 	
@@ -29,7 +31,8 @@ public class TileManager {
 		this.gamePanel = gamePanel;
 		
 		tile = new Tile[tileAmount];
-		mapTileNum = new int[2][gamePanel.maxWorldCol][gamePanel.maxWorldRow];
+		mapTileNum = new int[gamePanel.maxWorldCol][gamePanel.maxWorldRow];
+		mapTileTopLayer = new ArrayList<Tile<Machine>>();
 		
 		getTileImage();
 		loadMap("/world01.map");
@@ -123,7 +126,7 @@ public class TileManager {
 							if (!numbers[col].equals("")) {
 								int num = Integer.parseInt(numbers[col]);
 								
-								mapTileNum[0][col][row] = num;
+								mapTileNum[col][row] = num;
 								col++;
 							}
 						}
@@ -146,7 +149,7 @@ public class TileManager {
 		int worldRow = 0;
 		
 		while(worldCol < gamePanel.maxWorldCol && worldRow < gamePanel.maxWorldRow) {
-			int tileNum = mapTileNum[0][worldCol][worldRow];
+			int tileNum = mapTileNum[worldCol][worldRow];
 			
 			int worldX = worldCol * gamePanel.tileSize;
 			int worldY = worldRow * gamePanel.tileSize;
