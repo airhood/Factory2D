@@ -21,10 +21,12 @@ public class Player extends Entity{
 	public final int screenX;
 	public final int screenY;
 	
-	public int worldSpawnX;
-	public int worldSpawnY;
-	
 	boolean isVerticalMove = false;
+	
+	public float sprintingSpeed;
+	public float diagonalSprintingSpeed;
+	public float sneakingSpeed;
+	public float diagonalSneakingSpeed;
 	
 	public Player(GamePanel gamePanel, KeyHandler keyHandler) {
 		this.gamePanel = gamePanel;
@@ -44,6 +46,10 @@ public class Player extends Entity{
 		worldX = ((gamePanel.tileSize * (gamePanel.maxWorldRow / 2)) - (gamePanel.tileSize / 2)) * (-1);
 		speed = 3f;
 		diagonalSpeed = 2f;
+		sprintingSpeed = 4f;
+		diagonalSprintingSpeed = 3f;
+		sneakingSpeed = 2f;
+		diagonalSneakingSpeed = 1f;
 		direction = Direction.down;
 		collisionOnDirections = new Direction[2];
 	}
@@ -68,7 +74,21 @@ public class Player extends Entity{
 		int estimatedPlayerWorldX = worldX;
 		int estimatedPlayerWorldY = worldY;
 		
-		if (!keyHandler.upPressed && !keyHandler.downPressed && !keyHandler.leftPressed && !keyHandler.rightPressed) {
+		float currentSpeed;
+		float currentDiagonalSpeed;
+		
+		if (keyHandler.Shift && !keyHandler.Ctrl) {
+			currentSpeed = sneakingSpeed;
+			currentDiagonalSpeed = diagonalSneakingSpeed;
+		} else if (!keyHandler.Shift && keyHandler.Ctrl) {
+			currentSpeed = sprintingSpeed;
+			currentDiagonalSpeed = diagonalSprintingSpeed;
+		} else {
+			currentSpeed = speed;
+			currentDiagonalSpeed = diagonalSpeed;
+		}
+		
+		if (!keyHandler.W && !keyHandler.S && !keyHandler.A && !keyHandler.D) {
 			if (!isVerticalMove) {
 				spriteNum = 1;
 			}
@@ -78,17 +98,17 @@ public class Player extends Entity{
 			
 			Direction[] directions = new Direction[2];
 			
-			if (keyHandler.upPressed && !keyHandler.downPressed) {
+			if (keyHandler.W && !keyHandler.S) {
 				direction = Direction.up;
 				directions[0] = Direction.up;
 				moved = true;
-			} else if (keyHandler.downPressed && !keyHandler.upPressed) {
+			} else if (keyHandler.S && !keyHandler.W) {
 				direction = Direction.down;
 				directions[0] = Direction.down;
 				moved = true;
 			}
 			
-			if (keyHandler.leftPressed && !keyHandler.rightPressed) {
+			if (keyHandler.A && !keyHandler.D) {
 				direction = Direction.left;
 				
 				if (moved) {
@@ -99,7 +119,7 @@ public class Player extends Entity{
 				}
 				
 				moved = true;
-			} else if (keyHandler.rightPressed && !keyHandler.leftPressed) {
+			} else if (keyHandler.D && !keyHandler.A) {
 				direction = Direction.right;
 				
 				if (moved) {
@@ -120,56 +140,56 @@ public class Player extends Entity{
 					case up:
 						isVerticalMove = true;
 						direction = Direction.up;
-						estimatedPlayerWorldY += speed;
+						estimatedPlayerWorldY += currentSpeed;
 						break;
 					case down:
 						isVerticalMove = true;
-						estimatedPlayerWorldY -= speed;
+						estimatedPlayerWorldY -= currentSpeed;
 						direction = Direction.down;
 						break;
 					case left:
 						isVerticalMove = false;
 						direction = Direction.left;
-						estimatedPlayerWorldX += speed;
+						estimatedPlayerWorldX += currentSpeed;
 						break;
 					case right:
 						isVerticalMove = false;
 						direction = Direction.right;
-						estimatedPlayerWorldX -= speed;
+						estimatedPlayerWorldX -= currentSpeed;
 						break;
 				}
 			} else {				
 				switch(directions[0]) {
 					case up:
-						estimatedPlayerWorldY += diagonalSpeed;
+						estimatedPlayerWorldY += currentDiagonalSpeed;
 						break;
 					case down:
-						estimatedPlayerWorldY -= diagonalSpeed;
+						estimatedPlayerWorldY -= currentDiagonalSpeed;
 						break;
 					case left:
 						//direction = Direction.left;
-						estimatedPlayerWorldX += diagonalSpeed;
+						estimatedPlayerWorldX += currentDiagonalSpeed;
 						break;
 					case right:
 						//direction = Direction.right;
-						estimatedPlayerWorldX -= diagonalSpeed;
+						estimatedPlayerWorldX -= currentDiagonalSpeed;
 						break;					
 				}
 				
 				switch(directions[1]) {
 					case up:
-						estimatedPlayerWorldY += diagonalSpeed;
+						estimatedPlayerWorldY += currentDiagonalSpeed;
 						break;
 					case down:
-						estimatedPlayerWorldY -= diagonalSpeed;
+						estimatedPlayerWorldY -= currentDiagonalSpeed;
 						break;
 					case left:
 						//direction = Direction.left;
-						estimatedPlayerWorldX += diagonalSpeed;
+						estimatedPlayerWorldX += currentDiagonalSpeed;
 						break;
 					case right:
 						//direction = Direction.right;
-						estimatedPlayerWorldX -= diagonalSpeed;
+						estimatedPlayerWorldX -= currentDiagonalSpeed;
 						break;					
 				}
 				

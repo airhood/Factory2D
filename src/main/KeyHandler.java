@@ -5,7 +5,9 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener{
 	
-	public boolean upPressed, downPressed, leftPressed, rightPressed;
+	public boolean W, A, S, D;
+	public boolean Shift, Ctrl;
+	public boolean Q, E, T;
 	
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -16,16 +18,30 @@ public class KeyHandler implements KeyListener{
 	public void keyPressed(KeyEvent e) {		
 		switch(e.getKeyCode()) {
 			case KeyEvent.VK_W:
-				upPressed = true;
-				break;
-			case KeyEvent.VK_S:
-				downPressed = true;
+				W = true;
 				break;
 			case KeyEvent.VK_A:
-				leftPressed = true;
+				A = true;
+				break;
+			case KeyEvent.VK_S:
+				S = true;
 				break;
 			case KeyEvent.VK_D:
-				rightPressed = true;
+				D = true;
+				break;
+			case KeyEvent.VK_SHIFT:
+				Shift = true;
+				break;
+			case KeyEvent.VK_CONTROL:
+				Ctrl = true;
+				break;
+			case KeyEvent.VK_Q:
+				break;
+			case KeyEvent.VK_E:
+				break;
+			case KeyEvent.VK_T:
+				break;
+			case KeyEvent.VK_ESCAPE:
 				break;
 		}
 	}
@@ -33,18 +49,24 @@ public class KeyHandler implements KeyListener{
 	@Override
 	public void keyReleased(KeyEvent e) {
 		switch(e.getKeyCode()) {
-		case KeyEvent.VK_W:
-			upPressed = false;
-			break;
-		case KeyEvent.VK_S:
-			downPressed = false;
-			break;
-		case KeyEvent.VK_A:
-			leftPressed = false;
-			break;
-		case KeyEvent.VK_D:
-			rightPressed = false;
-			break;
+			case KeyEvent.VK_W:
+				W = false;
+				break;
+			case KeyEvent.VK_A:
+				A = false;
+				break;
+			case KeyEvent.VK_S:
+				S = false;
+				break;
+			case KeyEvent.VK_D:
+				D = false;
+				break;
+			case KeyEvent.VK_SHIFT:
+				Shift = false;
+				break;
+			case KeyEvent.VK_CONTROL:
+				Ctrl = false;
+				break;
 		}
 	}
 
