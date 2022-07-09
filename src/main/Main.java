@@ -18,7 +18,7 @@ public class Main {
 		//JFrame window = new JFrame();
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);
-		window.setTitle("2D Adventure");
+		window.setTitle("Pixel Adventure");
 		window.setIconImage(AppIconIamge);
 		
 		GamePanel gamePanel = new GamePanel();
@@ -37,7 +37,7 @@ public class Main {
 	
 	public void setCursor(String name) {
 		Toolkit toolkit = Toolkit.getDefaultToolkit();
-		Image image = toolkit.getImage(getClass().getResource("/cursor/" + name + ".png"));
+		Image image = toolkit.getImage(getClass().getResource("/cursors/" + name + ".png"));
 		Cursor cursor = toolkit.createCustomCursor(image, new Point(0, 0), "img");
 		
 		window.setCursor(cursor);

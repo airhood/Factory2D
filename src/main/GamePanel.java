@@ -8,7 +8,6 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import entity.Player;
-import object.SuperObject;
 import tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable{
@@ -37,7 +36,6 @@ public class GamePanel extends JPanel implements Runnable{
 	public CollisionChecker collisionChecker = new CollisionChecker(this);
 	public AssetSetter assetSetter = new AssetSetter(this);
 	public Player player = new Player(this, keyHandler);
-	public SuperObject[] obj = new SuperObject[10];
 	TileManager tileManager = new TileManager(this);
 	
 	int playerX = 100;
@@ -56,8 +54,6 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	public void SetUpGame() {
 		assetSetter.setObject();
-		player.worldX = player.worldSpawnX;
-		player.worldY = player.worldSpawnY;
 	}
 	
 	public void startGameThread() {

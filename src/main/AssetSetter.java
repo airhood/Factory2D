@@ -1,7 +1,5 @@
 package main;
 
-import object.OBJ_Key;
-
 public class AssetSetter {
 	
 	GamePanel gamePanel;
