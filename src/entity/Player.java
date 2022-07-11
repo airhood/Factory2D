@@ -70,7 +70,12 @@ public class Player extends Entity{
 		}
 	}
 	
-	public void update() {
+	public void update(int fps) {
+		int stackRange = 1;
+		if (fps != 0) {
+			stackRange = 60 / fps;
+		}
+		
 		int estimatedPlayerWorldX = worldX;
 		int estimatedPlayerWorldY = worldY;
 		
@@ -78,14 +83,14 @@ public class Player extends Entity{
 		float currentDiagonalSpeed;
 		
 		if (keyHandler.Shift && !keyHandler.Ctrl) {
-			currentSpeed = sneakingSpeed;
-			currentDiagonalSpeed = diagonalSneakingSpeed;
+			currentSpeed = sneakingSpeed * stackRange;
+			currentDiagonalSpeed = diagonalSneakingSpeed * stackRange;
 		} else if (!keyHandler.Shift && keyHandler.Ctrl) {
-			currentSpeed = sprintingSpeed;
-			currentDiagonalSpeed = diagonalSprintingSpeed;
+			currentSpeed = sprintingSpeed * stackRange;
+			currentDiagonalSpeed = diagonalSprintingSpeed * stackRange;
 		} else {
-			currentSpeed = speed;
-			currentDiagonalSpeed = diagonalSpeed;
+			currentSpeed = speed * stackRange;
+			currentDiagonalSpeed = diagonalSpeed * stackRange;
 		}
 		
 		if (!keyHandler.W && !keyHandler.S && !keyHandler.A && !keyHandler.D) {

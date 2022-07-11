@@ -26,13 +26,14 @@ public class GamePanel extends JPanel implements Runnable{
 	// world settings
 	public final int maxWorldCol = 96;
 	public final int maxWorldRow = 72;
-	public final int worldWidth = tileSize * maxWorldCol;
-	public final int worldHeight = tileSize * maxWorldRow;
+//	public final int worldWidth = tileSize * maxWorldCol;
+//	public final int worldHeight = tileSize * maxWorldRow;
 	
 	public int targetFPS = 60;
 	
 	
 	KeyHandler keyHandler = new KeyHandler();
+	Sound sound = new Sound();
 	Thread gameThread;
 	public CollisionChecker collisionChecker = new CollisionChecker(this);
 	public AssetSetter assetSetter = new AssetSetter(this);
@@ -59,6 +60,9 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 	
 	public void startGameThread() {
+		sound.play(0);
+		sound.loop(0);
+		
 		gameThread = new Thread(this);
 		gameThread.start();
 	}
@@ -72,11 +76,12 @@ public class GamePanel extends JPanel implements Runnable{
 		int fixedFPS = 0;
 		int FPSCount = 0;
 		long lastTime2 = 0;
+		int lastFPS = 0;
 		
 		while(gameThread != null) {
 			lastTime = System.nanoTime();
 			
-			update();
+			update(targetFPS);
 			repaint();
 			
 			try {
@@ -97,6 +102,7 @@ public class GamePanel extends JPanel implements Runnable{
 			currentTime = System.nanoTime();
 			
 			int currentFPS = (int) (1000000000 / (currentTime - lastTime));
+			lastFPS = currentFPS;
 			
 			FPSCount++;
 			
@@ -129,9 +135,8 @@ public class GamePanel extends JPanel implements Runnable{
 //		}
 	}
 	
-	public void update() {
-		player.update();
-		
+	public void update(int fps) {
+		player.update(fps);
 		//System.out.println("player pos | x: " + getPlayerXString() + " y: " + getPlayerYString());
 	}
 	
@@ -242,5 +247,9 @@ public class GamePanel extends JPanel implements Runnable{
 				main.setCursor("Working In Background");
 				break;
 		}
+	}
+	
+	public void playMusic() {
+		
 	}
 }

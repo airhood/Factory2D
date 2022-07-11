@@ -3,7 +3,7 @@ package object;
 import entity.Entity;
 import item.Item;
 
-public class ItemObject extends Entity{
+public class ItemObject extends Entity {
 	
 	public Item item;
 	
