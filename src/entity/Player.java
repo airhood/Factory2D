@@ -76,6 +76,14 @@ public class Player extends Entity{
 			stackRange = 60 / fps;
 		}
 		
+		int animationDuration = 4;
+		
+		if (gamePanel.keyHandler.Ctrl & !gamePanel.keyHandler.Shift) {
+			animationDuration = 6;
+		} else if (gamePanel.keyHandler.Shift && !gamePanel.keyHandler.Ctrl) {
+			animationDuration = 2;
+		}
+		
 		int estimatedPlayerWorldX = worldX;
 		int estimatedPlayerWorldY = worldY;
 		
@@ -248,7 +256,7 @@ public class Player extends Entity{
 			}
 			
 			spriteCounter++;
-			if (spriteCounter > gamePanel.targetFPS / 5) {
+			if (spriteCounter > gamePanel.targetFPS / animationDuration) {
 				if (spriteNum == 1) {
 					spriteNum = 2;
 				} else if (spriteNum == 2) {

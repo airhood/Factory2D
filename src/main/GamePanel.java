@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.MouseInfo;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
@@ -18,8 +21,8 @@ public class GamePanel extends JPanel implements Runnable{
 	final int scale = 3;
 	
 	public final int tileSize = originalTileSize * scale;
-	public final int maxScreenCol = 25; //16
-	public final int maxScreenRow = 15; //12
+	public final int maxScreenCol = 25; //16 > 25 --31
+	public final int maxScreenRow = 15; //12 > 15 --17
 	public final int screenWidth = tileSize * maxScreenCol;
 	public final int screenHeight = tileSize * maxScreenRow;
 	
@@ -32,14 +35,16 @@ public class GamePanel extends JPanel implements Runnable{
 	public int targetFPS = 60;
 	
 	
-	KeyHandler keyHandler = new KeyHandler();
+	public KeyHandler keyHandler = new KeyHandler(this);
 	Sound sound = new Sound();
 	Thread gameThread;
 	public CollisionChecker collisionChecker = new CollisionChecker(this);
 	public AssetSetter assetSetter = new AssetSetter(this);
 	public Player player = new Player(this, keyHandler);
 	TileManager tileManager = new TileManager(this);
+	public UI ui = new UI(this);
 	public EntityHandler entityHandler = new EntityHandler();
+	public Chat chat = new Chat(this);
 	
 	int playerX = 100;
 	int playerY = 100;
@@ -53,6 +58,36 @@ public class GamePanel extends JPanel implements Runnable{
 		this.setFocusable(true);
 		
 		setCursor(CursorType.NormalSelects);
+		
+		this.addMouseListener(new MouseListener() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println("mouseClick");
+				ui.checkChatInputField();
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				
+			}
+			
+		});
 	}
 	
 	public void SetUpGame() {
@@ -60,8 +95,8 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 	
 	public void startGameThread() {
-		sound.play(0);
-		sound.loop(0);
+		//int playID = sound.play(0);
+		//sound.loop(playID);
 		
 		gameThread = new Thread(this);
 		gameThread.start();
@@ -135,9 +170,24 @@ public class GamePanel extends JPanel implements Runnable{
 //		}
 	}
 	
+	int fpsCount = 0;
+	
 	public void update(int fps) {
 		player.update(fps);
 		//System.out.println("player pos | x: " + getPlayerXString() + " y: " + getPlayerYString());
+		
+		ui.mouseX = MouseInfo.getPointerInfo().getLocation().x;
+		ui.mouseY = MouseInfo.getPointerInfo().getLocation().y;
+		
+		//System.out.println("x:" + ui.mouseX + " | y:" + ui.mouseY);
+		
+		fpsCount++;
+		
+		if (targetFPS / 2 <= fpsCount) {
+			fpsCount = 0;
+			System.out.println("slslsl");
+			ui.chatInputAnimationUpdate();
+		}
 	}
 	
 	public float divide(float n, float m) {
@@ -199,6 +249,8 @@ public class GamePanel extends JPanel implements Runnable{
 		tileManager.draw(g2);
 		
 		player.draw(g2);
+		
+		ui.draw(g2);
 		
 		g2.dispose();
 	}
