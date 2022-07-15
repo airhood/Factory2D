@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 import main.GamePanel;
+import main.UtilityTool;
 
 public class TileManager {
 	
@@ -72,11 +73,19 @@ public class TileManager {
 			e.printStackTrace();
 		}
 		
+		for(int i = 0; i < 35; i++)
+		{
+			setUpTileImage(i, tileImageFileName[i]);
+		}
+	}
+	
+	
+	public void setUpTileImage(int index, String imagePath) {
+		UtilityTool utilityTool = new UtilityTool();
+		
 		try {
-			for(int i = 0; i < 35; i++)
-			{
-				tile[i].image = ImageIO.read(getClass().getResourceAsStream("/tiles/" + tileImageFileName[i]));
-			}
+			tile[index].image = ImageIO.read(getClass().getResourceAsStream("/tiles/" + imagePath));
+			tile[index].image = utilityTool.scaledImage(tile[index].image, gamePanel.tileSize, gamePanel.tileSize);
 		} catch(IOException e) {
 			e.printStackTrace();
 		}
@@ -158,6 +167,9 @@ public class TileManager {
 			
 			int outLineRenderX = ((renderDistance - 1) * gamePanel.maxScreenCol)+ (1 * gamePanel.tileSize);
 			int outLineRenderY = ((renderDistance - 1) * gamePanel.maxScreenRow) + (1 * gamePanel.tileSize);
+			
+			// World Outline Camera Collision
+			
 			
 			
 			if (worldX + outLineRenderX > (gamePanel.player.worldX * (-1)) - gamePanel.player.screenX &&

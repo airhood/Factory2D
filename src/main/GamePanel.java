@@ -29,8 +29,8 @@ public class GamePanel extends JPanel implements Runnable{
 	// world settings
 	public final int maxWorldCol = 96;
 	public final int maxWorldRow = 72;
-//	public final int worldWidth = tileSize * maxWorldCol;
-//	public final int worldHeight = tileSize * maxWorldRow;
+	public final int worldWidth = tileSize * maxWorldCol;
+	public final int worldHeight = tileSize * maxWorldRow;
 	
 	public int targetFPS = 60;
 	
@@ -95,8 +95,8 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 	
 	public void startGameThread() {
-		//int playID = sound.play(0);
-		//sound.loop(playID);
+		int playID = sound.play(0);
+		sound.loop(playID);
 		
 		gameThread = new Thread(this);
 		gameThread.start();

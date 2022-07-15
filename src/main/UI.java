@@ -48,10 +48,12 @@ public class UI {
 		g2.drawString(gamePanel.chat.chatLog.get(0), 10, 670);
 		g2.drawImage(chatInputField, 10, 685, 1175, 25, null);
 		
-		if (chatInputAnimationState) {
-			g2.drawString(gamePanel.chat.inputFieldText + "_", 15, 704);
-		} else {
-			g2.drawString(gamePanel.chat.inputFieldText, 15, 704);
+		if (gamePanel.chat.inputFieldFocused) {
+			if (chatInputAnimationState) {
+				g2.drawString(gamePanel.chat.inputFieldText + "_", 15, 704);
+			} else {
+				g2.drawString(gamePanel.chat.inputFieldText, 15, 704);
+			}
 		}
 	}
 	
