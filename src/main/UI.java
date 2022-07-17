@@ -19,6 +19,9 @@ public class UI {
 	
 	public boolean chatInputAnimationState;
 	
+	// UI
+	Chat chat;
+	
 	public UI(GamePanel gamePanel) {
 		this.gamePanel = gamePanel;
 		
@@ -32,6 +35,8 @@ public class UI {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		chat = new Chat(gamePanel);
 	}
 	
 	public void draw(Graphics2D g2) {
@@ -39,33 +44,9 @@ public class UI {
 		g2.setColor(Color.white);
 		
 		if (gamePanel.chat.chatScreenShowing) {
-			drawChat(g2);
+			chat.draw(g2);;
 		}
 	}
 	
-	public void drawChat(Graphics2D g2) {
-		gamePanel.chat.chatLog.add("<Hyunjun>Hi!");
-		g2.drawString(gamePanel.chat.chatLog.get(0), 10, 670);
-		g2.drawImage(chatInputField, 10, 685, 1175, 25, null);
-		
-		if (gamePanel.chat.inputFieldFocused) {
-			if (chatInputAnimationState) {
-				g2.drawString(gamePanel.chat.inputFieldText + "_", 15, 704);
-			} else {
-				g2.drawString(gamePanel.chat.inputFieldText, 15, 704);
-			}
-		}
-	}
 	
-	public void chatInputAnimationUpdate() {
-		chatInputAnimationState = !chatInputAnimationState;
-	}
-	
-	public void checkChatInputField() {
-		if (gamePanel.ui.mouseX >= 175 && gamePanel.ui.mouseX <= 1350 && gamePanel.ui.mouseY >= 770 && gamePanel.ui.mouseY <= 795) {
-			 gamePanel.chat.inputFieldFocused = true;
-			 return;
-		}
-		gamePanel.chat.inputFieldFocused = false;
-	}
 }

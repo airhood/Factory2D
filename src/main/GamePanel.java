@@ -64,7 +64,7 @@ public class GamePanel extends JPanel implements Runnable{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("mouseClick");
-				ui.checkChatInputField();
+				ui.chat.checkChatInputField();
 			}
 
 			@Override
@@ -185,8 +185,7 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		if (targetFPS / 2 <= fpsCount) {
 			fpsCount = 0;
-			System.out.println("slslsl");
-			ui.chatInputAnimationUpdate();
+			ui.chat.chatInputAnimationUpdate();
 		}
 	}
 	

@@ -172,6 +172,7 @@ public class TileManager {
 			
 			
 			
+			// Render Distance Check
 			if (worldX + outLineRenderX > (gamePanel.player.worldX * (-1)) - gamePanel.player.screenX &&
 					worldX - outLineRenderX < (gamePanel.player.worldX * (-1)) + gamePanel.player.screenX &&
 					worldY  + outLineRenderY > (gamePanel.player.worldY * (-1)) - gamePanel.player.screenY &&

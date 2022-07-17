@@ -54,6 +54,7 @@ public class KeyHandler implements KeyListener{
 					break;
 				case KeyEvent.VK_T:
 					gamePanel.chat.chatScreenShowing = !gamePanel.chat.chatScreenShowing;
+					gamePanel.chat.inputFieldFocused = true;
 					break;
 				case KeyEvent.VK_ESCAPE:
 					break;
