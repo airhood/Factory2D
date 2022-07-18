@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.AlphaComposite;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
@@ -49,9 +50,11 @@ public class Chat implements GUIDrawer {
 	}
 
 	@Override
-	public void draw(Graphics2D g2) {
+	public void draw(Graphics2D g2, Font font) {
 		String playerName = gamePanel.player.name;
 		String showingChatLog = "";
+		
+		g2.setFont(font);
 		
 		g2.setComposite(alphaComposite);
 		g2.drawImage(gamePanel.ui.chatInputField, 10, 685, 1175, 25, null);

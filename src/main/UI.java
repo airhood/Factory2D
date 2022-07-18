@@ -15,6 +15,7 @@ public class UI {
 	
 	GamePanel gamePanel;
 	Font font_Arial_20;
+	Font 배달의민족_주아_보통;
 	BufferedImage chatInputField;
 	
 	public boolean chatInputAnimationState;
@@ -29,6 +30,8 @@ public class UI {
 		
 		font_Arial_20 = new Font("Arial", Font.PLAIN, 20);
 		
+		배달의민족_주아_보통 = new Font("배달의민족 주아", Font.PLAIN, 20);
+		
 		try {
 			chatInputField = ImageIO.read(getClass().getResourceAsStream("/ui/ChatInputField.png"));
 		} catch (IOException e) {
@@ -39,11 +42,11 @@ public class UI {
 	}
 	
 	public void draw(Graphics2D g2) {
-		g2.setFont(font_Arial_20);
+		g2.setFont(배달의민족_주아_보통);
 		g2.setColor(Color.white);
 		
 		if (gamePanel.chat.chatScreenShowing) {
-			chat.draw(g2);;
+			chat.draw(g2, 배달의민족_주아_보통);;
 		}
 	}
 	

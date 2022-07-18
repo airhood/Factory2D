@@ -33,6 +33,8 @@ public class KeyHandler implements KeyListener{
 				} else {
 					gamePanel.chat.inputFieldText = gamePanel.chat.inputFieldText.substring(0, gamePanel.chat.inputFieldText.length() - 1);
 				}
+			} else if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
+				
 			} else {
 				gamePanel.chat.inputFieldText += Character.toString(e.getKeyChar());
 			}
