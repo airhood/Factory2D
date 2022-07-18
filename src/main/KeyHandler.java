@@ -25,9 +25,17 @@ public class KeyHandler implements KeyListener{
 		if (gamePanel.chat.chatScreenShowing & gamePanel.chat.inputFieldFocused) {
 			if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 				gamePanel.chat.chat(gamePanel.chat.inputFieldText);
+				gamePanel.chat.inputFieldText = "";
 				return;
+			} else if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+				if (gamePanel.chat.inputFieldText.length() <= 1) {
+					gamePanel.chat.inputFieldText = "";
+				} else {
+					gamePanel.chat.inputFieldText = gamePanel.chat.inputFieldText.substring(0, gamePanel.chat.inputFieldText.length() - 1);
+				}
+			} else {
+				gamePanel.chat.inputFieldText += Character.toString(e.getKeyChar());
 			}
-			gamePanel.chat.inputFieldText = gamePanel.chat.inputFieldText;
 		} else {
 			switch(e.getKeyCode()) {
 				case KeyEvent.VK_W:

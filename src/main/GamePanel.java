@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import entity.EntityHandler;
 import entity.Player;
@@ -39,8 +40,7 @@ public class GamePanel extends JPanel implements Runnable{
 	Sound sound = new Sound();
 	Thread gameThread;
 	public CollisionChecker collisionChecker = new CollisionChecker(this);
-	public AssetSetter assetSetter = new AssetSetter(this);
-	public Player player = new Player(this, keyHandler);
+	public Player player = new Player("Airhood", this, keyHandler);
 	TileManager tileManager = new TileManager(this);
 	public UI ui = new UI(this);
 	public EntityHandler entityHandler = new EntityHandler();
@@ -63,7 +63,6 @@ public class GamePanel extends JPanel implements Runnable{
 
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("mouseClick");
 				ui.chat.checkChatInputField();
 			}
 
@@ -91,7 +90,7 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 	
 	public void SetUpGame() {
-		assetSetter.setObject();
+		
 	}
 	
 	public void startGameThread() {

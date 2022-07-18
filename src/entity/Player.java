@@ -19,6 +19,8 @@ public class Player extends Entity{
 	GamePanel gamePanel;
 	KeyHandler keyHandler;
 	
+	public String name;
+	
 	public final int screenX;
 	public final int screenY;
 	
@@ -29,7 +31,8 @@ public class Player extends Entity{
 	public float sneakingSpeed;
 	public float diagonalSneakingSpeed;
 	
-	public Player(GamePanel gamePanel, KeyHandler keyHandler) {
+	public Player(String name, GamePanel gamePanel, KeyHandler keyHandler) {
+		this.name = name;
 		this.gamePanel = gamePanel;
 		this.keyHandler = keyHandler;
 		

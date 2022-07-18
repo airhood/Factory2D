@@ -32,7 +32,6 @@ public class UI {
 		try {
 			chatInputField = ImageIO.read(getClass().getResourceAsStream("/ui/ChatInputField.png"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
