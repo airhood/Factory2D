@@ -19,6 +19,8 @@ public class Chat implements GUIDrawer {
 	
 	public ArrayList<String> chatLog = new ArrayList<String>();
 	
+	public int currentPointer;
+	
 	AlphaComposite alphaComposite;
 	AlphaComposite defaultAlphaComposite;
 	
@@ -33,6 +35,8 @@ public class Chat implements GUIDrawer {
 		
 		alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float)120/255);
 		defaultAlphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float)255/255);
+		
+		currentPointer = 0;
 	}
 	
 	public void chat(String chat) {
@@ -72,7 +76,7 @@ public class Chat implements GUIDrawer {
 			for (int i = gamePanel.chat.chatLog.size() - 1; i >= 0; i--) {
 				int y = 650 - (lineSpacing * n);
 				
-				if (y >= 0) {
+				if (y >= 105 + 3) {
 					g2.drawString("<" + playerName + ">" + gamePanel.chat.chatLog.get(i), 10, y);
 				} else {
 					break;
@@ -83,12 +87,10 @@ public class Chat implements GUIDrawer {
 		}
 		
 				
-		if (gamePanel.chat.inputFieldFocused) {
-			if (gamePanel.ui.chatInputAnimationState) {
-				g2.drawString(gamePanel.chat.inputFieldText + "_", 15, 704);
-			} else {
-				g2.drawString(gamePanel.chat.inputFieldText, 15, 704);
-			}
+		if (gamePanel.ui.chatInputAnimationState) {
+			g2.drawString(gamePanel.chat.inputFieldText + "_", 15, 704);
+		} else {
+			g2.drawString(gamePanel.chat.inputFieldText, 15, 704);
 		}
 	}
 	

@@ -22,6 +22,8 @@ public class KeyHandler implements KeyListener{
 
 	@Override
 	public void keyPressed(KeyEvent e) {
+		System.out.println(e.getKeyCode());
+		
 		if (gamePanel.chat.chatScreenShowing & gamePanel.chat.inputFieldFocused) {
 			if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 				gamePanel.chat.chat(gamePanel.chat.inputFieldText);
@@ -33,7 +35,9 @@ public class KeyHandler implements KeyListener{
 				} else {
 					gamePanel.chat.inputFieldText = gamePanel.chat.inputFieldText.substring(0, gamePanel.chat.inputFieldText.length() - 1);
 				}
-			} else if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
+			} else if (e.getKeyCode() == KeyEvent.VK_DELETE) {
+				
+			} else if (e.getKeyCode() == KeyEvent.VK_SHIFT || e.getKeyCode() == KeyEvent.VK_CONTROL || e.getKeyCode() == KeyEvent.VK_ALT || e.getKeyCode() == KeyEvent.VK_WINDOWS || e.getKeyCode() == 263 || e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_CAPS_LOCK || e.getKeyCode() == KeyEvent.VK_INSERT || e.getKeyCode() == KeyEvent.VK_NUM_LOCK) {
 				
 			} else {
 				gamePanel.chat.inputFieldText += Character.toString(e.getKeyChar());
