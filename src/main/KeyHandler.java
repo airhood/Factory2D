@@ -2,6 +2,8 @@ package main;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class KeyHandler implements KeyListener{
 	
@@ -10,6 +12,8 @@ public class KeyHandler implements KeyListener{
 	public boolean W, A, S, D;
 	public boolean Shift, Ctrl;
 	public boolean Q, E, T;
+	
+	private ArrayList<Integer> chatInputKeyException = new ArrayList<>(Arrays.asList(KeyEvent.VK_SHIFT, KeyEvent.VK_CONTROL, KeyEvent.VK_ALT, KeyEvent.VK_WINDOWS, KeyEvent.VK_CAPS_LOCK, KeyEvent.VK_INSERT, KeyEvent.VK_NUM_LOCK, KeyEvent.VK_UP, KeyEvent.VK_DOWN));
 	
 	public KeyHandler(GamePanel gamePanel) {
 		this.gamePanel = gamePanel;
@@ -21,13 +25,12 @@ public class KeyHandler implements KeyListener{
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e) {
-		System.out.println(e.getKeyCode());
-		
+	public void keyPressed(KeyEvent e) {		
 		if (gamePanel.chat.chatScreenShowing & gamePanel.chat.inputFieldFocused) {
 			if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 				gamePanel.chat.chat(gamePanel.chat.inputFieldText);
 				gamePanel.chat.inputFieldText = "";
+				gamePanel.chat.currentPointer = 0;
 				return;
 			} else if (e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
 				if (gamePanel.chat.inputFieldText.length() <= 1) {
@@ -35,12 +38,25 @@ public class KeyHandler implements KeyListener{
 				} else {
 					gamePanel.chat.inputFieldText = gamePanel.chat.inputFieldText.substring(0, gamePanel.chat.inputFieldText.length() - 1);
 				}
+				
+				if (gamePanel.chat.currentPointer > 0) {
+					gamePanel.chat.currentPointer--;
+				}
 			} else if (e.getKeyCode() == KeyEvent.VK_DELETE) {
 				
-			} else if (e.getKeyCode() == KeyEvent.VK_SHIFT || e.getKeyCode() == KeyEvent.VK_CONTROL || e.getKeyCode() == KeyEvent.VK_ALT || e.getKeyCode() == KeyEvent.VK_WINDOWS || e.getKeyCode() == 263 || e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_CAPS_LOCK || e.getKeyCode() == KeyEvent.VK_INSERT || e.getKeyCode() == KeyEvent.VK_NUM_LOCK) {
+			} else if (chatInputKeyException.contains(e.getKeyCode())) {
 				
+			} else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+				if (gamePanel.chat.currentPointer > 0) {
+					gamePanel.chat.currentPointer--;
+				}
+			} else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+				if (gamePanel.chat.inputFieldText.length() != gamePanel.chat.currentPointer) {
+					gamePanel.chat.currentPointer++;
+				}
 			} else {
 				gamePanel.chat.inputFieldText += Character.toString(e.getKeyChar());
+				gamePanel.chat.currentPointer++;
 			}
 		} else {
 			switch(e.getKeyCode()) {

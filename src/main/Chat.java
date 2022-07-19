@@ -86,12 +86,31 @@ public class Chat implements GUIDrawer {
 			}
 		}
 		
+		System.out.println(gamePanel.chat.currentPointer);
+		
 				
 		if (gamePanel.ui.chatInputAnimationState) {
-			g2.drawString(gamePanel.chat.inputFieldText + "_", 15, 704);
+			g2.drawString(insertString(gamePanel.chat.inputFieldText, "_", gamePanel.chat.currentPointer), 15, 704);
 		} else {
 			g2.drawString(gamePanel.chat.inputFieldText, 15, 704);
 		}
+	}
+	
+	public String insertString(String originalString, String stringToBeInserted, int index) {
+		if (index > originalString.length()) return "";
+		
+		String newString = new String();
+		for (int i = 0; i <= originalString.length(); i++) {			
+			if (i == index) {
+				newString += stringToBeInserted;
+			}
+			
+			if (i != originalString.length()) {
+				newString += originalString.charAt(i);
+			}
+		}
+		
+		return newString;
 	}
 	
 	public void chatInputAnimationUpdate() {
