@@ -13,7 +13,7 @@ public class KeyHandler implements KeyListener{
 	public boolean Shift, Ctrl;
 	public boolean Q, E, T;
 	
-	private ArrayList<Integer> chatInputKeyException = new ArrayList<>(Arrays.asList(KeyEvent.VK_SHIFT, KeyEvent.VK_CONTROL, KeyEvent.VK_ALT, KeyEvent.VK_WINDOWS, KeyEvent.VK_CAPS_LOCK, KeyEvent.VK_INSERT, KeyEvent.VK_NUM_LOCK, KeyEvent.VK_UP, KeyEvent.VK_DOWN));
+	private ArrayList<Integer> chatInputKeyException = new ArrayList<>(Arrays.asList(KeyEvent.VK_SHIFT, KeyEvent.VK_CONTROL, KeyEvent.VK_ALT, KeyEvent.VK_WINDOWS, KeyEvent.VK_CAPS_LOCK, KeyEvent.VK_INSERT, KeyEvent.VK_NUM_LOCK, KeyEvent.VK_UP, KeyEvent.VK_DOWN, 263));
 	
 	public KeyHandler(GamePanel gamePanel) {
 		this.gamePanel = gamePanel;
@@ -25,7 +25,7 @@ public class KeyHandler implements KeyListener{
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e) {		
+	public void keyPressed(KeyEvent e) {
 		if (gamePanel.chat.chatScreenShowing & gamePanel.chat.inputFieldFocused) {
 			if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 				gamePanel.chat.chat(gamePanel.chat.inputFieldText);
