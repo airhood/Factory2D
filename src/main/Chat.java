@@ -86,14 +86,48 @@ public class Chat implements GUIDrawer {
 			}
 		}
 		
-		System.out.println(gamePanel.chat.currentPointer);
+		// 101
+		String inputFieldShowUpText = "";
+		int currentRelativePointer = 0;
 		
-				
-		if (gamePanel.ui.chatInputAnimationState) {
-			g2.drawString(insertString(gamePanel.chat.inputFieldText, "_", gamePanel.chat.currentPointer), 15, 704);
+		if (getScreenStringLength(gamePanel.chat.inputFieldText) > 1400) {
+			//inputFieldShowUpText = getRangeString(gamePanel.chat.inputFieldText, gamePanel.chat.inputFieldText.length() - 101, gamePanel.chat.inputFieldText.length());
+			//currentRelativePointer = gamePanel.chat.currentPointer - (gamePanel.chat.inputFieldText.length() - 100) + 1;
+			
+			inputFieldShowUpText = gamePanel.chat.inputFieldText;
+			currentRelativePointer = gamePanel.chat.currentPointer;
 		} else {
-			g2.drawString(gamePanel.chat.inputFieldText, 15, 704);
+			inputFieldShowUpText = gamePanel.chat.inputFieldText;
+			currentRelativePointer = gamePanel.chat.currentPointer;
 		}
+		
+		if (gamePanel.ui.chatInputAnimationState) {
+			g2.drawString(insertString(inputFieldShowUpText, "_", currentRelativePointer), 15, 704);
+		} else {
+			g2.drawString(inputFieldShowUpText, 15, 704);
+		}
+	}
+	
+	public int getScreenStringLength(String string) {
+		if (string == null || string == "") return 0;
+		
+		int length = 0;
+		for (int i = 0; i < string.length(); i++) {
+			length += gamePanel.ui.character_ratios.get(string.charAt(i));
+		}
+		
+		return length;
+	}
+	
+	public String getRangeString(String string, int start, int end) {
+		if (start >= end) return "";
+		
+		String newString = new String();
+		for (int i = start; i < end; i++) {
+			newString += string.charAt(i);
+		}
+		
+		return newString;
 	}
 	
 	public String insertString(String originalString, String stringToBeInserted, int index) {
